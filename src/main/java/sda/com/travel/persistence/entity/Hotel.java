@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "delete_hotel_by_name", query = "delete Hotel h where h.name=:name "),
-        @NamedQuery(name = "find_hotel_by_name", query = "select h from Hotel h where h.name=:name")
+        @NamedQuery(name = "find_hotel_by_name", query = "select h from Hotel h where h.name=:name"),
+        @NamedQuery(name = "count_hotel", query = "select count(*) from Hotel h where h.name=:name"),
+        @NamedQuery(name = "find_hotel_by_name_and_city_name", query = "select h from Hotel h where h.name=:hotelName and h.city.name=:cityName")
 })
 
 @Table(name = "hotels")

@@ -18,6 +18,7 @@ public class CityDAO {
     }
 
     public City findCityByName(String name){
+        System.out.println(name);
         hibernateUtil.openSessionAndTransaction();
         Query query = hibernateUtil.session.createNamedQuery("find_city_by_name");
         query.setParameter("name", name);
