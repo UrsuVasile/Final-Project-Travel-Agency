@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name = "find_city_by_name", query = "select c from City c where c.name=:name")
+        @NamedQuery(name = "find_city_by_name", query = "select c from City c where c.name=:name"),
+        @NamedQuery(name = "delete_city", query = "delete City c where c.name=:name "),
+        @NamedQuery(name = "find_city_by_name_and_continent_name", query = "select c from City c where c.name =:cityName and c.country.countryName=:countryName"),
+        @NamedQuery(name = "count_citys", query = "select  count(*) from City c where c.name=:name")
 })
 
 @Table(name = "citys")
