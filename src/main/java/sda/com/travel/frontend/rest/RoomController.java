@@ -13,13 +13,13 @@ import sda.com.travel.frontend.dto.RoomDTO;
 @RestController
 @RequestMapping("/room/")
 public class RoomController {
-    @Autowired
-    RoomService roomService;
-
-    @PostMapping(path = "insertRoom", consumes = "application/json")
-    public ResponseEntity insertRoom(@RequestBody RoomDTO roomDTO){
-        System.out.println(roomDTO.getFromDate());
-        //roomService.insertRoom(roomDTO);
-        return ResponseEntity.ok("Succes! The Room was inserted in DB!");
-    }
+//    @Autowired
+//    RoomService roomService;
+//
+//    @PostMapping(path = "insertRoom", consumes = "application/json")
+//    public ResponseEntity insertRoom(@RequestBody RoomDTO roomDTO){
+//        System.out.println(roomDTO.getFromDate());
+//        //roomService.insertRoom(roomDTO);
+//        return ResponseEntity.ok("Succes! The Room was inserted in DB!");
+//    }
 }

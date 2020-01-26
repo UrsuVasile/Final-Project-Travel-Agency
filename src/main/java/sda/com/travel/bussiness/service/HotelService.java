@@ -34,6 +34,20 @@ public class HotelService {
         hotel.setStandard(hotelDTO.getStandard());
         hotel.setCity(cityDAO.findCityByName(hotelDTO.getCityDTO().getName()));
 
+        Room room = new Room();
+        room.setToDate(hotelDTO.getRoomDTO().getToDate());
+        room.setPriceForSingleRoom(hotelDTO.getRoomDTO().getPriceForSingleRoom());
+        room.setPriceForExtraBed(hotelDTO.getRoomDTO().getPriceForExtraBed());
+        room.setPriceForDoubleRoom(hotelDTO.getRoomDTO().getPriceForDoubleRoom());
+        room.setNrOfSingleRooms(hotelDTO.getRoomDTO().getNrOfSingleRooms());
+        room.setNrOfExtraBeds(hotelDTO.getRoomDTO().getNrOfExtraBeds());
+        room.setNrOfDoubleRooms(hotelDTO.getRoomDTO().getNrOfDoubleRooms());
+        room.setFromDate(hotelDTO.getRoomDTO().getFromDate());
+
+        room.setHotel(hotel);
+
+        hotel.setRoom(room);
+
         hotelDAO.insertHotel(hotel);
     }
 

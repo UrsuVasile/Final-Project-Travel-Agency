@@ -14,6 +14,7 @@ public class RoomDTO {
     private int priceForExtraBed;
     private HotelDTO hotelDTO;
 
+
     public Date getFromDate() {
         return fromDate;
     }
