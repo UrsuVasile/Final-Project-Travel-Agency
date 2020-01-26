@@ -1,6 +1,7 @@
 package sda.com.travel.persistence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "delete_hotel_by_name", query = "delete Hotel h where h.name=:name "),
@@ -33,6 +34,17 @@ public class Hotel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
+
+    @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Room room;
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
     public String getName() {
         return name;

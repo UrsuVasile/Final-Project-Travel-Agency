@@ -14,6 +14,7 @@
         <mapping class="sda.com.travel.persistence.entity.Country"></mapping>
         <mapping class="sda.com.travel.persistence.entity.City"></mapping>
         <mapping class="sda.com.travel.persistence.entity.Hotel"></mapping>
+        <mapping class="sda.com.travel.persistence.entity.Room"></mapping>
 
 
 

@@ -1,10 +1,23 @@
 package sda.com.travel.frontend.dto;
 
+import sda.com.travel.persistence.entity.Room;
+
+import java.util.List;
+
 public class HotelDTO {
     private String name;
     private String description;
     private int standard;
     private CityDTO cityDTO;
+    private RoomDTO roomDTO;
+
+    public RoomDTO getRoomDTO() {
+        return roomDTO;
+    }
+
+    public void setRoomDTO(RoomDTO roomDTO) {
+        this.roomDTO = roomDTO;
+    }
 
     public String getName() {
         return name;

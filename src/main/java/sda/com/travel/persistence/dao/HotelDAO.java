@@ -66,4 +66,13 @@ public class HotelDAO {
         hibernateUtil.closeSessionAndTransaction();
         return hotelsList;
     }
+
+    public Hotel findHotelByNameWithSingleResult(String name){
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_hotel_by_name");
+        query.setParameter("name", name);
+        Hotel hotel = (Hotel) query.getSingleResult();
+        hibernateUtil.closeSessionAndTransaction();
+        return hotel;
+    }
 }

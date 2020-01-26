@@ -2,18 +2,9 @@ package sda.com.travel.bussiness.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sda.com.travel.frontend.dto.CityDTO;
-import sda.com.travel.frontend.dto.ContinentDTO;
-import sda.com.travel.frontend.dto.CountryDTO;
-import sda.com.travel.frontend.dto.HotelDTO;
-import sda.com.travel.persistence.dao.CityDAO;
-import sda.com.travel.persistence.dao.ContinentDAO;
-import sda.com.travel.persistence.dao.CountryDAO;
-import sda.com.travel.persistence.dao.HotelDAO;
-import sda.com.travel.persistence.entity.City;
-import sda.com.travel.persistence.entity.Continent;
-import sda.com.travel.persistence.entity.Country;
-import sda.com.travel.persistence.entity.Hotel;
+import sda.com.travel.frontend.dto.*;
+import sda.com.travel.persistence.dao.*;
+import sda.com.travel.persistence.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +23,9 @@ public class HotelService {
 
     @Autowired
     ContinentDAO continentDAO;
+
+    @Autowired
+    RoomDAO roomDAO;
 
     public void insertHotel(HotelDTO hotelDTO) {
         Hotel hotel = new Hotel();
@@ -56,6 +50,19 @@ public class HotelService {
             hotelDTO.setName(h.getName());
             hotelDTO.setDescription(h.getDescription());
             hotelDTO.setStandard(h.getStandard());
+
+            Room room = roomDAO.findRoomsByHotelName(h.getName());
+            RoomDTO roomDTO = new RoomDTO();
+            roomDTO.setFromDate(room.getFromDate());
+            roomDTO.setToDate(room.getToDate());
+            roomDTO.setNrOfDoubleRooms(room.getNrOfDoubleRooms());
+            roomDTO.setNrOfExtraBeds(room.getNrOfExtraBeds());
+            roomDTO.setNrOfSingleRooms(room.getNrOfSingleRooms());
+            roomDTO.setPriceForDoubleRoom(room.getPriceForDoubleRoom());
+            roomDTO.setPriceForExtraBed(room.getPriceForExtraBed());
+            roomDTO.setPriceForSingleRoom(room.getPriceForSingleRoom());
+            hotelDTO.setRoomDTO(roomDTO);
+
 
             Continent continent = continentDAO.findContinentByName(h.getCity().getCountry().getContinent().getName());
             ContinentDTO continentDTO = new ContinentDTO();
@@ -86,27 +93,27 @@ public class HotelService {
 
         City city = cityDAO.findCityByName(hotelDTO.getCityDTO().getName());
         Country country = countryDAO.findCountryByName(city.getCountry().getCountryName());
-        Continent continent= continentDAO.findContinentByName(country.getContinent().getName());
+        Continent continent = continentDAO.findContinentByName(country.getContinent().getName());
         hotel.setCity(city);
 
         hotelDAO.updateHotel(hotel);
     }
 
-    public List<HotelDTO> findHotelByNameAndCityName(HotelDTO hotelDTO){
+    public List<HotelDTO> findHotelByNameAndCityName(HotelDTO hotelDTO) {
         Hotel hotel = new Hotel();
         hotel.setStandard(hotelDTO.getStandard());
         hotel.setDescription(hotelDTO.getDescription());
         hotel.setName(hotelDTO.getName());
         City city = cityDAO.findCityByName(hotelDTO.getCityDTO().getName());
         Country country = countryDAO.findCountryByName(city.getCountry().getCountryName());
-        Continent continent= continentDAO.findContinentByName(country.getContinent().getName());
+        Continent continent = continentDAO.findContinentByName(country.getContinent().getName());
         hotel.setCity(city);
 
         List<Hotel> hotelsList = hotelDAO.findHotelByNameAndCityName(hotel);
 
         List<HotelDTO> hotelDTOList = new ArrayList<>();
 
-        for(Hotel h : hotelsList){
+        for (Hotel h : hotelsList) {
             HotelDTO hotelDTO1 = new HotelDTO();
             hotelDTO1.setStandard(h.getStandard());
             hotelDTO1.setDescription(h.getDescription());
