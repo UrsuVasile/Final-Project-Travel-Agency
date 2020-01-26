@@ -105,10 +105,23 @@ public class HotelService {
         hotel.setDescription(hotelDTO.getDescription());
         hotel.setName(hotelDTO.getName());
 
+        Room room = new Room();
+        room.setFromDate(hotelDTO.getRoomDTO().getFromDate());
+        room.setNrOfDoubleRooms(hotelDTO.getRoomDTO().getNrOfDoubleRooms());
+        room.setNrOfExtraBeds(hotelDTO.getRoomDTO().getNrOfExtraBeds());
+        room.setNrOfSingleRooms(hotelDTO.getRoomDTO().getNrOfSingleRooms());
+        room.setPriceForDoubleRoom(hotelDTO.getRoomDTO().getPriceForDoubleRoom());
+        room.setPriceForExtraBed(hotelDTO.getRoomDTO().getPriceForExtraBed());
+        room.setPriceForSingleRoom(hotelDTO.getRoomDTO().getPriceForSingleRoom());
+        room.setToDate(hotelDTO.getRoomDTO().getToDate());
+
+        room.setHotel(hotel);
+
         City city = cityDAO.findCityByName(hotelDTO.getCityDTO().getName());
         Country country = countryDAO.findCountryByName(city.getCountry().getCountryName());
         Continent continent = continentDAO.findContinentByName(country.getContinent().getName());
         hotel.setCity(city);
+        hotel.setRoom(room);
 
         hotelDAO.updateHotel(hotel);
     }

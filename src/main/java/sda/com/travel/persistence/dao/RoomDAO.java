@@ -12,12 +12,6 @@ public class RoomDAO {
 
     HibernateUtil hibernateUtil = new HibernateUtil();
 
-    public void insertRoom(Room room){
-        hibernateUtil.openSessionAndTransaction();
-        hibernateUtil.session.persist(room);
-        hibernateUtil.closeSessionAndTransaction();
-    }
-
     public Room findRoomsByHotelName(String name){
         hibernateUtil.openSessionAndTransaction();
         Query query = hibernateUtil.session.createNamedQuery("find_rooms");

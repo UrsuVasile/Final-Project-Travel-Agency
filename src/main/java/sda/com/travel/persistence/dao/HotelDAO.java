@@ -2,6 +2,7 @@ package sda.com.travel.persistence.dao;
 
 import org.springframework.stereotype.Repository;
 import sda.com.travel.persistence.entity.Hotel;
+import sda.com.travel.persistence.entity.Room;
 import sda.com.travel.utils.config.HibernateUtil;
 
 import javax.persistence.Query;
@@ -51,6 +52,17 @@ public class HotelDAO {
             hotel1.setDescription(hotel.getDescription());
             hotel1.setStandard(hotel.getStandard());
             hotel1.setCity(hotel.getCity());
+            Room room = new Room();
+            room.setToDate(hotel.getRoom().getToDate());
+            room.setPriceForSingleRoom(hotel.getRoom().getPriceForSingleRoom());
+            room.setPriceForExtraBed(hotel.getRoom().getPriceForExtraBed());
+            room.setPriceForDoubleRoom(hotel.getRoom().getPriceForDoubleRoom());
+            room.setNrOfSingleRooms(hotel.getRoom().getNrOfSingleRooms());
+            room.setNrOfExtraBeds(hotel.getRoom().getNrOfExtraBeds());
+            room.setNrOfDoubleRooms(hotel.getRoom().getNrOfDoubleRooms());
+            room.setFromDate(hotel.getRoom().getFromDate());
+            room.setHotel(hotel1);
+            hotel1.setRoom(room);
 
             hibernateUtil.session.persist(hotel1);
         }else throw new Exception();
