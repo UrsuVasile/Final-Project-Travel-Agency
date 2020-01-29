@@ -20,10 +20,8 @@ public class CityService {
 
     @Autowired
     CityDAO cityDAO;
-
     @Autowired
     CountryDAO countryDAO;
-
     @Autowired
     ContinentDAO continentDAO;
 

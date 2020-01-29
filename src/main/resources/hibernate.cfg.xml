@@ -15,8 +15,9 @@
         <mapping class="sda.com.travel.persistence.entity.City"></mapping>
         <mapping class="sda.com.travel.persistence.entity.Hotel"></mapping>
         <mapping class="sda.com.travel.persistence.entity.Room"></mapping>
-
-
+        <mapping class="sda.com.travel.persistence.entity.Airport"></mapping>
+        <mapping class="sda.com.travel.persistence.entity.Flight"/>
+        <mapping class="sda.com.travel.persistence.entity.Trip"></mapping>
 
     </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,9 @@
 package sda.com.travel.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "find_city_by_name", query = "select c from City c where c.name=:name"),
@@ -30,15 +32,10 @@ public class City {
     private Country country;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "city")
-    private List<Hotel> hotelsList;
+    private Set<Hotel> hotelsList;
 
-    public List<Hotel> getHotelsList() {
-        return hotelsList;
-    }
-
-    public void setHotelsList(List<Hotel> hotelsList) {
-        this.hotelsList = hotelsList;
-    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "cityAirports")
+    private Set<Airport> airportsList;
 
     public String getName() {
         return name;
@@ -54,5 +51,21 @@ public class City {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Set<Hotel> getHotelsList() {
+        return hotelsList;
+    }
+
+    public void setHotelsList(Set<Hotel> hotelsList) {
+        this.hotelsList = hotelsList;
+    }
+
+    public Set<Airport> getAirportsList() {
+        return airportsList;
+    }
+
+    public void setAirportsList(Set<Airport> airportsList) {
+        this.airportsList = airportsList;
     }
 }

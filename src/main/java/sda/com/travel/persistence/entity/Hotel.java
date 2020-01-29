@@ -38,6 +38,17 @@ public class Hotel {
     @OneToOne(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Room room;
 
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "tripHotel")
+//    private List<Trip> tripsList;
+//
+//    public List<Trip> getTripsList() {
+//        return tripsList;
+//    }
+//
+//    public void setTripsList(List<Trip> tripsList) {
+//        this.tripsList = tripsList;
+//    }
+
     public Room getRoom() {
         return room;
     }
