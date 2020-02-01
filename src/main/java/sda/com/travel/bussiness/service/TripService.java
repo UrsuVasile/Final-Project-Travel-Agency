@@ -6,10 +6,8 @@ import sda.com.travel.frontend.dto.*;
 import sda.com.travel.persistence.dao.FlightDAO;
 import sda.com.travel.persistence.dao.HotelDAO;
 import sda.com.travel.persistence.dao.TripDAO;
-import sda.com.travel.persistence.entity.City;
-import sda.com.travel.persistence.entity.Flight;
-import sda.com.travel.persistence.entity.Hotel;
-import sda.com.travel.persistence.entity.Trip;
+import sda.com.travel.persistence.dao.UserDAO;
+import sda.com.travel.persistence.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +21,8 @@ public class TripService {
     FlightDAO flightDAO;
     @Autowired
     HotelDAO hotelDAO;
+    @Autowired
+    UserDAO userDao;
 
     public void insertTrip(TripDTO tripDTO) {
         Trip trip = new Trip();
@@ -177,5 +177,10 @@ public class TripService {
             tripDTOList.add(tripDTO1);
         }
         return tripDTOList;
+    }
+
+    public void buyTrip(TripDTO tripDTO){
+        Trip trip = tripDAO.findTripSingleResult(tripDTO.getHotelDTO().getName());
+        User user = userDao.findUser(tripDTO.getTripDetailsDTOSet().);
     }
 }

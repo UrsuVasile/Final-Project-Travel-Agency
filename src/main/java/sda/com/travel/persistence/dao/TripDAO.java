@@ -45,4 +45,13 @@ public class TripDAO {
         return tripList;
     }
 
+    public Trip findTripSingleResult(String hotelName){
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_trip_by_hotel_name");
+        query.setParameter("name", hotelName);
+        Trip trip = (Trip) query.getSingleResult();
+        hibernateUtil.closeSessionAndTransaction();
+        return trip;
+    }
+
 }

@@ -3,6 +3,10 @@ package sda.com.travel.persistence.entity;
 import javax.persistence.*;
 import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(name = "find_user_by_email", query = "select s from User s where s.email=:email")
+})
+
 @Table(name = "users")
 @Entity
 public class User {

@@ -31,4 +31,10 @@ public class TripController {
         List<TripDTO> tripDTOList = tripService.findTrip(tripDTO);
         return tripDTOList;
     }
+
+    @PostMapping(path = "buyTrip", consumes = "application/json")
+    public ResponseEntity buyTrip (TripDTO tripDTO){
+        tripService.buyTrip(tripDTO);
+        return ResponseEntity.ok("Succes! Get your luggage. You bought your dream trip!");
+    }
 }
