@@ -88,4 +88,16 @@ public class Hotel {
     public void setCity(City city) {
         this.city = city;
     }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", standard=" + standard +
+                ", city=" + city +
+                ", room=" + room +
+                '}';
+    }
 }

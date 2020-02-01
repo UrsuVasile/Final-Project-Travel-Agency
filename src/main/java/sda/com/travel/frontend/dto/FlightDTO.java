@@ -1,6 +1,7 @@
 package sda.com.travel.frontend.dto;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class FlightDTO {
 

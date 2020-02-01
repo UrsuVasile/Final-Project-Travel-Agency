@@ -25,4 +25,10 @@ public class TripController {
         List<TripDTO> tripDTOSList= tripService.findTripByHotelName(hotelName);
         return tripDTOSList;
     }
+
+    @GetMapping(path = "findTrip", consumes = "application/json")
+    public List<TripDTO> findTrip(@RequestBody TripDTO tripDTO){
+        List<TripDTO> tripDTOList = tripService.findTrip(tripDTO);
+        return tripDTOList;
+    }
 }

@@ -26,4 +26,23 @@ public class TripDAO {
         return tripsList;
     }
 
+    public List<Trip> findTrip(Trip trip){
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_trip");
+
+        System.out.println(trip);
+
+        query.setParameter("departureDate", trip.getDepartureDate().getDepartureDate());
+        query.setParameter("returneDate", trip.getReturnDate().getDepartureDate());
+        query.setParameter("hotelName", trip.getTripHotel().getName());
+        query.setParameter("cityName", trip.getTripHotel().getCity().getName());
+        query.setParameter("nrSingle", trip.getNrOfSingleRooms());
+        query.setParameter("nrDouble", trip.getNrOfDoubleRooms());
+        query.setParameter("nrExtraBeds", trip.getNrOfExtraBeds());
+        List<Trip> tripList = query.getResultList();
+        System.out.println("marime lista = "+tripList.size());
+        hibernateUtil.closeSessionAndTransaction();
+        return tripList;
+    }
+
 }

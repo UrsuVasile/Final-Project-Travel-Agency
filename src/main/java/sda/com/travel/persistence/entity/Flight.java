@@ -1,7 +1,8 @@
 package sda.com.travel.persistence.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+
 
 @NamedQueries({
         @NamedQuery(name = "find_fligh_by_flight_number", query = "select f from Flight f where f.flightNumber=:flightNumber")
@@ -106,5 +107,20 @@ public class Flight {
 
     public void setTripDeparture(Trip tripDeparture) {
         this.tripDeparture = tripDeparture;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", departureDate=" + departureDate +
+                ", totalNrOfSeets=" + totalNrOfSeets +
+                ", availableSeets=" + availableSeets +
+                ", flightPrice=" + flightPrice +
+                ", airport=" + airport +
+                ", tripReturn=" + tripReturn +
+                ", tripDeparture=" + tripDeparture +
+                '}';
     }
 }

@@ -3,7 +3,8 @@ package sda.com.travel.persistence.entity;
 import javax.persistence.*;
 
 @NamedQueries({
-        @NamedQuery(name = "find_trip_by_hotel_name", query = "select t from Trip t where t.tripHotel.name=:name")
+        @NamedQuery(name = "find_trip_by_hotel_name", query = "select t from Trip t where t.tripHotel.name=:name"),
+        @NamedQuery(name = "find_trip", query = "select t from Trip t where (t.departureDate.departureDate=:departureDate or :departureDate=null) and (t.returnDate.departureDate=:returneDate or :returneDate = null) and (t.tripHotel.name=:hotelName or :hotelName = null) and (t.tripHotel.city.name=:cityName or :cityName = null) and (t.nrOfSingleRooms=:nrSingle or :nrSingle = null) and (t.nrOfDoubleRooms=:nrDouble or :nrDouble = null) and (t.nrOfExtraBeds=:nrExtraBeds or :nrExtraBeds = null)")
 })
 
 @Table(name = "trips")
@@ -108,5 +109,20 @@ public class Trip {
 
     public void setTripHotel(Hotel tripHotel) {
         this.tripHotel = tripHotel;
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", departureDate=" + departureDate +
+                ", returnDate=" + returnDate +
+                ", type='" + type + '\'' +
+                ", promoted=" + promoted +
+                ", nrOfDoubleRooms=" + nrOfDoubleRooms +
+                ", nrOfSingleRooms=" + nrOfSingleRooms +
+                ", nrOfExtraBeds=" + nrOfExtraBeds +
+                ", tripHotel=" + tripHotel +
+                '}';
     }
 }

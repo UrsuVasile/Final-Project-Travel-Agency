@@ -68,4 +68,15 @@ public class City {
     public void setAirportsList(Set<Airport> airportsList) {
         this.airportsList = airportsList;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country=" + country +
+                ", hotelsList=" + hotelsList +
+                ", airportsList=" + airportsList +
+                '}';
+    }
 }
