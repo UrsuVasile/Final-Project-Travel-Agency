@@ -1,6 +1,7 @@
 package sda.com.travel.persistence.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "find_trip_by_hotel_name", query = "select t from Trip t where t.tripHotel.name=:name"),
@@ -46,6 +47,16 @@ public class Trip {
     @JoinColumn(name = "hotel_id")
     private Hotel tripHotel;
 
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "trip")
+    private Set<TripDetails> tripDetails;
+
+    public Set<TripDetails> getTripDetails() {
+        return tripDetails;
+    }
+
+    public void setTripDetails(Set<TripDetails> tripDetails) {
+        this.tripDetails = tripDetails;
+    }
 
     public Flight getDepartureDate() {
         return departureDate;
