@@ -11,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
 
     public Transaction transaction;
-    public Session session;
+    public Session session ;
     public SessionFactory sessionFactory;
 
     public HibernateUtil() {
@@ -19,6 +19,8 @@ public class HibernateUtil {
         MetadataSources sources = new MetadataSources(registry);
         Metadata metadata = sources.getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();
+
+
     }
 
     public void openSessionAndTransaction() {

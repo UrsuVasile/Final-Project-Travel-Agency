@@ -5,7 +5,8 @@ import java.sql.Date;
 
 
 @NamedQueries({
-        @NamedQuery(name = "find_fligh_by_flight_number", query = "select f from Flight f where f.flightNumber=:flightNumber")
+        @NamedQuery(name = "find_fligh_by_flight_number", query = "select f from Flight f where f.flightNumber=:flightNumber"),
+        @NamedQuery(name = "count_flights", query = "select count(*) from Flight f where f.flightNumber=:flightNumber")
 })
 
 @Table(name = "flights")

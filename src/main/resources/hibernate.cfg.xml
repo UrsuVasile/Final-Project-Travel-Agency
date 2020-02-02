@@ -9,7 +9,7 @@
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">parola</property>
         <property name="show_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+<!--        <property name="hibernate.hbm2ddl.auto"> </property>-->
         <mapping class="sda.com.travel.persistence.entity.Continent"></mapping>
         <mapping class="sda.com.travel.persistence.entity.Country"></mapping>
         <mapping class="sda.com.travel.persistence.entity.City"></mapping>

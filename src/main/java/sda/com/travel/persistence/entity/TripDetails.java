@@ -22,8 +22,19 @@ public class TripDetails {
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @ManyToMany(mappedBy = "tripDetailsSet")
+    @ManyToMany
+    @JoinTable(name = "tripdetails_users",
+            joinColumns = @JoinColumn(name = "tripdetails_id"),
+            inverseJoinColumns = @JoinColumn(name= "user_id"))
     private Set<User> userSet;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getAmount() {
         return amount;

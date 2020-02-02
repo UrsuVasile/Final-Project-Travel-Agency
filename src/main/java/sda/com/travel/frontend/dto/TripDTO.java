@@ -1,7 +1,5 @@
 package sda.com.travel.frontend.dto;
 
-import sda.com.travel.persistence.entity.TripDetails;
-
 import java.util.Set;
 
 public class TripDTO {
@@ -12,9 +10,10 @@ public class TripDTO {
     private int nrOfSingleRooms;
     private int nrOfExtraBeds;
     private HotelDTO hotelDTO;
-    private FlightDTO departureDate;
-    private FlightDTO returnDate;
+    private FlightDTO departureFlightDTO;
+    private FlightDTO returnFlightDTO;
     private Set<TripDetailsDTO> tripDetailsDTOSet;
+
 
     public Set<TripDetailsDTO> getTripDetailsDTOSet() {
         return tripDetailsDTOSet;
@@ -24,20 +23,20 @@ public class TripDTO {
         this.tripDetailsDTOSet = tripDetailsDTOSet;
     }
 
-    public FlightDTO getDepartureDate() {
-        return departureDate;
+    public FlightDTO getDepartureFlightDTO() {
+        return departureFlightDTO;
     }
 
-    public void setDepartureDate(FlightDTO departureDate) {
-        this.departureDate = departureDate;
+    public void setDepartureFlightDTO(FlightDTO departureFlightDTO) {
+        this.departureFlightDTO = departureFlightDTO;
     }
 
-    public FlightDTO getReturnDate() {
-        return returnDate;
+    public FlightDTO getReturnFlightDTO() {
+        return returnFlightDTO;
     }
 
-    public void setReturnDate(FlightDTO returnDate) {
-        this.returnDate = returnDate;
+    public void setReturnFlightDTO(FlightDTO returnFlightDTO) {
+        this.returnFlightDTO = returnFlightDTO;
     }
 
     public String getType() {

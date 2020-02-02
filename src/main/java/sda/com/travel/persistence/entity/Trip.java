@@ -47,16 +47,16 @@ public class Trip {
     @JoinColumn(name = "hotel_id")
     private Hotel tripHotel;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "trip")
-    private Set<TripDetails> tripDetails;
 
-    public Set<TripDetails> getTripDetails() {
-        return tripDetails;
-    }
-
-    public void setTripDetails(Set<TripDetails> tripDetails) {
-        this.tripDetails = tripDetails;
-    }
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "trip")
+//    private Set<TripDetails> tripDetails;
+//    public Set<TripDetails> getTripDetails() {
+//        return tripDetails;
+//    }
+//
+//    public void setTripDetails(Set<TripDetails> tripDetails) {
+//        this.tripDetails = tripDetails;
+//    }
 
     public Flight getDepartureDate() {
         return departureDate;

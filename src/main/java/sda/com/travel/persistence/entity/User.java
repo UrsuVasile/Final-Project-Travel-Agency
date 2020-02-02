@@ -34,11 +34,16 @@ public class User {
     @Column(name = "total_amount")
     private int totalAmount;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_tripdetails",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "tripdetails_id"))
+    @ManyToMany(mappedBy = "userSet")
     private Set<TripDetails> tripDetailsSet;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirsName() {
         return firsName;

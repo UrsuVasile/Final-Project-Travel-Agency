@@ -1,11 +1,16 @@
 package sda.com.travel.persistence.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import sda.com.travel.persistence.entity.Trip;
+import sda.com.travel.persistence.entity.TripDetails;
+import sda.com.travel.persistence.entity.User;
 import sda.com.travel.utils.config.HibernateUtil;
 
 import javax.persistence.Query;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class TripDAO {
@@ -46,12 +51,17 @@ public class TripDAO {
     }
 
     public Trip findTripSingleResult(String hotelName){
+
         hibernateUtil.openSessionAndTransaction();
         Query query = hibernateUtil.session.createNamedQuery("find_trip_by_hotel_name");
         query.setParameter("name", hotelName);
+        System.out.println("nume hotel: "+ hotelName);
         Trip trip = (Trip) query.getSingleResult();
         hibernateUtil.closeSessionAndTransaction();
+
         return trip;
     }
+
+
 
 }

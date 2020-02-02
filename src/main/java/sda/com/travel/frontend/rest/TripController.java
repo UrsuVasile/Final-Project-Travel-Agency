@@ -33,8 +33,13 @@ public class TripController {
     }
 
     @PostMapping(path = "buyTrip", consumes = "application/json")
-    public ResponseEntity buyTrip (TripDTO tripDTO){
-        tripService.buyTrip(tripDTO);
+    public ResponseEntity buyTrip (@RequestBody TripDTO tripDTO){
+        try {
+            tripService.buyTrip(tripDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error!---------------------------");
+        }
         return ResponseEntity.ok("Succes! Get your luggage. You bought your dream trip!");
     }
 }
