@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @NamedQueries({
-        @NamedQuery(name = "find_user_by_email", query = "select s from User s where s.email=:email")
+        @NamedQuery(name = "find_user_by_email", query = "select s from User s where s.email=:email"),
+        @NamedQuery(name = "countUser", query = "select count (*) from User u where u.email=:email")
 })
 
 @Table(name = "users")
@@ -34,7 +35,7 @@ public class User {
     @Column(name = "total_amount")
     private int totalAmount;
 
-    @ManyToMany(mappedBy = "userSet")
+    @ManyToMany(mappedBy = "userSet", cascade = CascadeType.ALL)
     private Set<TripDetails> tripDetailsSet;
 
     public int getId() {

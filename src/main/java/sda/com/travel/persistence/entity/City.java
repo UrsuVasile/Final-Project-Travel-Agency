@@ -27,7 +27,7 @@ public class City {
     @Column(name = "city_name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id")
     private Country country;
 
@@ -69,14 +69,5 @@ public class City {
         this.airportsList = airportsList;
     }
 
-    @Override
-    public String toString() {
-        return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country=" + country +
-                ", hotelsList=" + hotelsList +
-                ", airportsList=" + airportsList +
-                '}';
-    }
+
 }

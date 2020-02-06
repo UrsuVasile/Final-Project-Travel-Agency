@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Repository
 public class TripDAO {
-    HibernateUtil hibernateUtil = new HibernateUtil();
+    HibernateUtil hibernateUtil = HibernateUtil.getInstance();
 
     public void insertTrip(Trip trip){
         hibernateUtil.openSessionAndTransaction();
@@ -51,13 +51,13 @@ public class TripDAO {
     }
 
     public Trip findTripSingleResult(String hotelName){
+        System.out.println("nume hotellllllllllll = "+hotelName);
 
-        hibernateUtil.openSessionAndTransaction();
         Query query = hibernateUtil.session.createNamedQuery("find_trip_by_hotel_name");
         query.setParameter("name", hotelName);
         System.out.println("nume hotel: "+ hotelName);
         Trip trip = (Trip) query.getSingleResult();
-        hibernateUtil.closeSessionAndTransaction();
+        //hibernateUtil.closeSessionAndTransaction();
 
         return trip;
     }

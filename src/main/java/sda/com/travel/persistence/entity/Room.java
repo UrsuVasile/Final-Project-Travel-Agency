@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @NamedQueries({
-        @NamedQuery(name = "find_rooms", query = "select r from Room r where r.hotel.name=:name")
+        @NamedQuery(name = "find_rooms", query = "select r from Room r where r.hotel.name=:name"),
+        @NamedQuery(name = "count_rooms", query = "select count (*) from Room r where r.hotel.name=:hotelName")
 })
 
 @Table(name = "rooms")
@@ -43,7 +44,7 @@ public class Room {
     @Column(name = "price_for_extra_bed")
     private int priceForExtraBed;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
@@ -119,4 +120,11 @@ public class Room {
         this.priceForExtraBed = priceForExtraBed;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

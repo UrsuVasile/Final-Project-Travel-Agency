@@ -43,20 +43,20 @@ public class Trip {
     @Column(name = "no_of_extra_beds")
     private int nrOfExtraBeds;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "hotel_id")
     private Hotel tripHotel;
 
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "trip")
-//    private Set<TripDetails> tripDetails;
-//    public Set<TripDetails> getTripDetails() {
-//        return tripDetails;
-//    }
-//
-//    public void setTripDetails(Set<TripDetails> tripDetails) {
-//        this.tripDetails = tripDetails;
-//    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "trip")
+    private Set<TripDetails> tripDetails;
+    public Set<TripDetails> getTripDetails() {
+        return tripDetails;
+    }
+
+    public void setTripDetails(Set<TripDetails> tripDetails) {
+        this.tripDetails = tripDetails;
+    }
 
     public Flight getDepartureDate() {
         return departureDate;

@@ -22,7 +22,7 @@ public class Country {
     @Column(name = "country_name")
     private String countryName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "continent_id")
     private Continent continent;
 

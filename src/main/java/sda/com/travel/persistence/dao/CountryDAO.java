@@ -9,7 +9,7 @@ import javax.persistence.Query;
 @Repository
 public class CountryDAO {
 
-    HibernateUtil hibernateUtil = new HibernateUtil();
+    HibernateUtil hibernateUtil = HibernateUtil.getInstance();
 
     public void insertCountry(Country country){
         hibernateUtil.openSessionAndTransaction();

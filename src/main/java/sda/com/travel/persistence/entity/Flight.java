@@ -36,7 +36,7 @@ public class Flight {
     @Column(name = "flight_price")
     private int flightPrice;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "airport_id")
     private Airport airport;
 
@@ -110,18 +110,5 @@ public class Flight {
         this.tripDeparture = tripDeparture;
     }
 
-    @Override
-    public String toString() {
-        return "Flight{" +
-                "id=" + id +
-                ", flightNumber='" + flightNumber + '\'' +
-                ", departureDate=" + departureDate +
-                ", totalNrOfSeets=" + totalNrOfSeets +
-                ", availableSeets=" + availableSeets +
-                ", flightPrice=" + flightPrice +
-                ", airport=" + airport +
-                ", tripReturn=" + tripReturn +
-                ", tripDeparture=" + tripDeparture +
-                '}';
-    }
+
 }

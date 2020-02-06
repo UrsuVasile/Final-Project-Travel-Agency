@@ -9,7 +9,7 @@ import javax.persistence.Query;
 @Repository
 public class ContinentDAO {
 
-    HibernateUtil hibernateUtil = new HibernateUtil();
+    HibernateUtil hibernateUtil = HibernateUtil.getInstance();
 
     public void insertContinent(Continent continent){
         hibernateUtil.openSessionAndTransaction();

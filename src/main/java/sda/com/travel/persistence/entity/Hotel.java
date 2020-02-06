@@ -31,7 +31,7 @@ public class Hotel {
     @Column(name = "standard")
     private int standard;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
     private City city;
 
@@ -89,15 +89,13 @@ public class Hotel {
         this.city = city;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", standard=" + standard +
-                ", city=" + city +
-                ", room=" + room +
-                '}';
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 }

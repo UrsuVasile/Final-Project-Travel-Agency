@@ -8,7 +8,7 @@ import javax.persistence.Query;
 
 @Repository
 public class AirportDAO {
-    HibernateUtil hibernateUtil = new HibernateUtil();
+    HibernateUtil hibernateUtil = HibernateUtil.getInstance();
 
     public Airport findAirportByName(String name){
         hibernateUtil.openSessionAndTransaction();

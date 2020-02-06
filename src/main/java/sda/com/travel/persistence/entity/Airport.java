@@ -22,11 +22,11 @@ public class Airport {
     @Column(name = "airport_name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "city_id")
     private City cityAirports;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "airport")
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "airport")
     private Set<Flight> flightsList;
 
     public String getName() {

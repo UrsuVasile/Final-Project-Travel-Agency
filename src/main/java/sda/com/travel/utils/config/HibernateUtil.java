@@ -10,17 +10,24 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 public class HibernateUtil {
 
+    private static HibernateUtil hibernateUtil = null;
+
     public Transaction transaction;
     public Session session ;
     public SessionFactory sessionFactory;
 
-    public HibernateUtil() {
+    private HibernateUtil() {
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
         MetadataSources sources = new MetadataSources(registry);
         Metadata metadata = sources.getMetadataBuilder().build();
         sessionFactory = metadata.getSessionFactoryBuilder().build();
+    }
 
-
+    public static HibernateUtil getInstance(){
+        if(hibernateUtil == null){
+            hibernateUtil = new HibernateUtil();
+        }
+        return hibernateUtil;
     }
 
     public void openSessionAndTransaction() {

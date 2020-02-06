@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class CityDAO {
 
-    HibernateUtil hibernateUtil = new HibernateUtil();
+    HibernateUtil hibernateUtil = HibernateUtil.getInstance();
 
     public void insertCity (City city){
         hibernateUtil.openSessionAndTransaction();

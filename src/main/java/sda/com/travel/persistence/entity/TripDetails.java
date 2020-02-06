@@ -18,11 +18,11 @@ public class TripDetails {
     @Column(name = "amount")
     private int amount;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "trip_id")
     private Trip trip;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tripdetails_users",
             joinColumns = @JoinColumn(name = "tripdetails_id"),
             inverseJoinColumns = @JoinColumn(name= "user_id"))
