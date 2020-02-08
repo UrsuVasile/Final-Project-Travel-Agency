@@ -62,6 +62,15 @@ public class TripDAO {
         return trip;
     }
 
+    public List<Trip> findTripsByCountries(String countryName){
 
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_trip_by_country");
+        query.setParameter("countryName", countryName);
+        List<Trip> tripsList = query.getResultList();
+        hibernateUtil.closeSessionAndTransaction();
+        return tripsList;
+
+    }
 
 }

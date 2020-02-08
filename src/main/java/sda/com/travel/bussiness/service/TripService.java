@@ -1,6 +1,7 @@
 package sda.com.travel.bussiness.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import sda.com.travel.frontend.dto.*;
 import sda.com.travel.persistence.dao.*;
@@ -195,7 +196,7 @@ public class TripService {
         return tripDTOList;
     }
 
-    public void buyTrip(TripDTO tripDTO) throws Exception {
+    public String buyTrip(TripDTO tripDTO) throws Exception {
         //deschid sesiunea si tranzactia
         hibernateUtil.openSessionAndTransaction();
         //transfer datele din TripDTO in Trip
@@ -203,7 +204,12 @@ public class TripService {
 
         //calculez nr de persoane care vor participa in calatorie
         int nrOfPersons = ((trip.getNrOfDoubleRooms() + 2) + (trip.getNrOfSingleRooms() + 1) + (trip.getNrOfExtraBeds() + 1)) / 2;
-        System.out.println("numarul de persoane = " + nrOfPersons);
+
+        //calculez costul total al calatoriei
+        Trip purchasedTrip = tripDAO.findTripSingleResult(tripDTO.getHotelDTO().getName());
+        int totalAmount = (purchasedTrip.getTripHotel().getRoom().getPriceForSingleRoom()*purchasedTrip.getNrOfSingleRooms())+(purchasedTrip.getTripHotel().getRoom().getPriceForDoubleRoom()*purchasedTrip.getNrOfDoubleRooms())+(purchasedTrip.getTripHotel().getRoom().getPriceForExtraBed()*purchasedTrip.getNrOfExtraBeds());
+        String totalAmountOfTrip = "Total amount of Trip is "+totalAmount+" Euro";
+        System.out.println(totalAmountOfTrip);
 
         //transfer datele din TripDTO intr-un obiect Flight pt a putea accesa metoda updateFlight din FlightDAO
         Flight departureFlight = transferDataFromTripDTOInFlightObject(tripDTO);
@@ -217,13 +223,15 @@ public class TripService {
         flightDAO.updateFlight(departureFlight, nrOfPersons);
 
         //fac update la user pt a recalcula totalAmount per User
-        userDao.updateUser(tripDetails);
+        userDao.updateUser(tripDetails, totalAmount);
 
         //fac update la camerele din Hotelul ales (scad camerele din Trip din nr total de camere disponibile)
         roomDAO.updateRooms(tripDetails);
 
         //Inchid sesiunea si tranzactia, ca sa nu le mai caut prin DAO
         HibernateUtil.getInstance().closeSessionAndTransaction();
+
+        return totalAmountOfTrip;
 
     }
 
@@ -301,10 +309,87 @@ public class TripService {
         returnDate.setFlightPrice(tripDTO.getReturnFlightDTO().getFlightPrice());
         returnDate.setAvailableSeets(tripDTO.getReturnFlightDTO().getAvailableSeets());
         Airport airport1 = new Airport();
-        airport.setName(tripDTO.getReturnFlightDTO().getAirportDTO().getName());
+        airport1.setName(tripDTO.getReturnFlightDTO().getAirportDTO().getName());
         returnDate.setAirport(airport1);
 
         trip.setReturnDate(returnDate);
         return trip;
+    }
+
+    public List<TripDTO> findTripsByCountries(String countryName){
+                //iau lista de Trip-uri din DAO
+        List<Trip> tripsList = tripDAO.findTripsByCountries(countryName);
+        List<TripDTO> tripDTOSList = new ArrayList<>();
+
+        //transfer datele dintr-un obiect Trip in TripDTO si il adaug in lista, pe care o returnez
+        for (Trip t: tripsList){
+            TripDTO tripDTO1 = transferTripFieldsInTripDTOObject(t);
+
+            tripDTOSList.add(tripDTO1);
+        }
+        return tripDTOSList;
+    }
+
+    public TripDTO transferTripFieldsInTripDTOObject(Trip trip){
+        TripDTO tripDTO = new TripDTO();
+        tripDTO.setNrOfExtraBeds(trip.getNrOfExtraBeds());
+        tripDTO.setNrOfSingleRooms(trip.getNrOfSingleRooms());
+        tripDTO.setNrOfDoubleRooms(trip.getNrOfDoubleRooms());
+        tripDTO.setPromoted(trip.isPromoted());
+        tripDTO.setType(trip.getType());
+
+        HotelDTO hotelDTO = new HotelDTO();
+        hotelDTO.setName(trip.getTripHotel().getName());
+        hotelDTO.setDescription(trip.getTripHotel().getDescription());
+        hotelDTO.setStandard(trip.getTripHotel().getStandard());
+        CityDTO cityDTO = new CityDTO();
+        cityDTO.setName(trip.getTripHotel().getCity().getName());
+        CountryDTO countryDTO = new CountryDTO();
+        countryDTO.setCountryName(trip.getTripHotel().getCity().getCountry().getCountryName());
+        ContinentDTO continentDTO = new ContinentDTO();
+        continentDTO.setName(trip.getTripHotel().getCity().getCountry().getContinent().getName());
+        countryDTO.setContinentDTO(continentDTO);
+        cityDTO.setCountryDTO(countryDTO);
+        hotelDTO.setCityDTO(cityDTO);
+
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setPriceForSingleRoom(trip.getTripHotel().getRoom().getPriceForSingleRoom());
+        roomDTO.setPriceForExtraBed(trip.getTripHotel().getRoom().getPriceForExtraBed());
+        roomDTO.setPriceForDoubleRoom(trip.getTripHotel().getRoom().getPriceForDoubleRoom());
+
+        hotelDTO.setRoomDTO(roomDTO);
+        tripDTO.setHotelDTO(hotelDTO);
+
+        FlightDTO departureFlight = new FlightDTO();
+        departureFlight.setFlightNumber(trip.getDepartureDate().getFlightNumber());
+        departureFlight.setDepartureDate(trip.getDepartureDate().getDepartureDate());
+        departureFlight.setFlightPrice(trip.getDepartureDate().getFlightPrice());
+        departureFlight.setAvailableSeets(trip.getDepartureDate().getAvailableSeets());
+        departureFlight.setTotalNrOfSeets(trip.getDepartureDate().getTotalNrOfSeets());
+
+        AirportDTO airportDTO = new AirportDTO();
+        airportDTO.setName(trip.getDepartureDate().getAirport().getName());
+        CityDTO cityDTO1 = new CityDTO();
+        cityDTO1.setName(trip.getDepartureDate().getAirport().getCityAirports().getName());
+        airportDTO.setCityDTO(cityDTO1);
+        departureFlight.setAirportDTO(airportDTO);
+        tripDTO.setDepartureFlightDTO(departureFlight);
+
+        FlightDTO returnFlight = new FlightDTO();
+        returnFlight.setFlightNumber(trip.getDepartureDate().getFlightNumber());
+        returnFlight.setDepartureDate(trip.getDepartureDate().getDepartureDate());
+        returnFlight.setFlightPrice(trip.getDepartureDate().getFlightPrice());
+        returnFlight.setAvailableSeets(trip.getDepartureDate().getAvailableSeets());
+        returnFlight.setTotalNrOfSeets(trip.getDepartureDate().getTotalNrOfSeets());
+
+        AirportDTO airportDTO1 = new AirportDTO();
+        airportDTO1.setName(trip.getReturnDate().getAirport().getName());
+        CityDTO cityDTO2 = new CityDTO();
+        cityDTO2.setName(trip.getReturnDate().getAirport().getCityAirports().getName());
+        airportDTO1.setCityDTO(cityDTO2);
+        returnFlight.setAirportDTO(airportDTO1);
+        tripDTO.setReturnFlightDTO(returnFlight);
+
+        return tripDTO;
     }
 }

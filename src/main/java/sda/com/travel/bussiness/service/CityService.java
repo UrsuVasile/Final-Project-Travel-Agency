@@ -30,7 +30,7 @@ public class CityService {
 
         city.setName(cityDTO.getName());
         city.setCountry(countryDAO.findCountryByName(cityDTO.getCountryDTO().getCountryName()));
-
+        System.out.println("numele tarii = "+ countryDAO.findCountryByName(cityDTO.getCountryDTO().getCountryName()));
         cityDAO.insertCity(city);
     }
 

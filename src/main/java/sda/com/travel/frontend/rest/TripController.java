@@ -33,13 +33,21 @@ public class TripController {
     }
 
     @PostMapping(path = "buyTrip", consumes = "application/json")
-    public ResponseEntity buyTrip (@RequestBody TripDTO tripDTO){
+    public ResponseEntity<String> buyTrip (@RequestBody TripDTO tripDTO){
+        String response;
         try {
-            tripService.buyTrip(tripDTO);
+            response = tripService.buyTrip(tripDTO);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Error!---------------------------");
         }
-        return ResponseEntity.ok("Succes! Get your luggage. You bought your dream trip!");
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping(path = "findTripsByCountries/{countryName}")
+    public ResponseEntity<List<TripDTO>> findTripsByCountries(@PathVariable String countryName){
+
+        List<TripDTO> tripDTOSList = tripService.findTripsByCountries(countryName);
+        return ResponseEntity.ok().body(tripDTOSList);
     }
 }

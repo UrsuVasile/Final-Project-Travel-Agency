@@ -24,7 +24,7 @@ public class UserDAO {
         return user;
     }
 
-    public void updateUser(TripDetails tripDetails) {
+    public void updateUser(TripDetails tripDetails, int totalAmount) {
         Query query = hibernateUtil.session.createNamedQuery("countUser");
         Set<User> userSet = tripDetails.getUserSet();
         List<User> userList = new ArrayList<>(userSet);
@@ -45,7 +45,7 @@ public class UserDAO {
             user.setLastName(user.getLastName());
             user.setId(user.getId());
             user.setPassword(user.getEmail());
-            user.setTotalAmount(user.getTotalAmount() + tripDetails.getAmount());
+            user.setTotalAmount(user.getTotalAmount() + totalAmount);
             hibernateUtil.session.persist(user);
 
         } else {
