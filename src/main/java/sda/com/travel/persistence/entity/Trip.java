@@ -6,7 +6,8 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "find_trip_by_hotel_name", query = "select t from Trip t where t.tripHotel.name=:name"),
         @NamedQuery(name = "find_trip", query = "select t from Trip t where (t.departureDate.departureDate=:departureDate or :departureDate=null) and (t.returnDate.departureDate=:returneDate or :returneDate = null) and (t.tripHotel.name=:hotelName or :hotelName = null) and (t.tripHotel.city.name=:cityName or :cityName = null) and (t.nrOfSingleRooms=:nrSingle or :nrSingle = null) and (t.nrOfDoubleRooms=:nrDouble or :nrDouble = null) and (t.nrOfExtraBeds=:nrExtraBeds or :nrExtraBeds = null)"),
-        @NamedQuery(name = "find_trip_by_country", query = "select t from Trip t where t.tripHotel.city.country.countryName=:countryName or :countryName=null ")
+        @NamedQuery(name = "find_trip_by_country", query = "select t from Trip t where t.tripHotel.city.country.countryName=:countryName or :countryName=null "),
+        @NamedQuery(name = "find_trip_if_is_promoted", query = "select t from Trip  t where t.promoted=true ")
 })
 
 @Table(name = "trips")

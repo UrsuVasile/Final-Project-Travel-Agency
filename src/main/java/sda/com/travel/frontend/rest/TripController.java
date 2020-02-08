@@ -50,4 +50,10 @@ public class TripController {
         List<TripDTO> tripDTOSList = tripService.findTripsByCountries(countryName);
         return ResponseEntity.ok().body(tripDTOSList);
     }
+
+    @GetMapping(path = "transferTripFieldsInTripDTOObject/{isPromoted}")
+    public List<TripDTO> transferTripFieldsInTripDTOObject(@PathVariable boolean isPromoted){
+        List<TripDTO> tripDTOSList = tripService.findTripIfIsPromoted(isPromoted);
+        return tripDTOSList;
+    }
 }

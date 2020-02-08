@@ -392,4 +392,15 @@ public class TripService {
 
         return tripDTO;
     }
+
+    public List<TripDTO> findTripIfIsPromoted(boolean isPromoted){
+        List<Trip> tripsList = tripDAO.findTripIfIsPromoted(isPromoted);
+        List<TripDTO> tripDTOSList = new ArrayList<>();
+
+        for (Trip t: tripsList){
+            TripDTO tripDTO = transferTripFieldsInTripDTOObject(t);
+            tripDTOSList.add(tripDTO);
+        }
+        return tripDTOSList;
+    }
 }

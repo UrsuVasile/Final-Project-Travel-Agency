@@ -73,4 +73,12 @@ public class TripDAO {
 
     }
 
+    public List<Trip> findTripIfIsPromoted (boolean isPromoted){
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_trip_if_is_promoted");
+        List<Trip> tripsList = query.getResultList();
+        hibernateUtil.closeSessionAndTransaction();
+        return tripsList;
+    }
+
 }
