@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import sda.com.travel.bussiness.service.TripService;
 import sda.com.travel.frontend.dto.TripDTO;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -54,6 +55,18 @@ public class TripController {
     @GetMapping(path = "transferTripFieldsInTripDTOObject/{isPromoted}")
     public List<TripDTO> transferTripFieldsInTripDTOObject(@PathVariable boolean isPromoted){
         List<TripDTO> tripDTOSList = tripService.findTripIfIsPromoted(isPromoted);
+        return tripDTOSList;
+    }
+
+    @GetMapping(path = "findTripByType/{type}")
+    public List<TripDTO> findTripByType(@PathVariable String type){
+        List<TripDTO> tripDTOSList = tripService.findTripByType(type);
+        return tripDTOSList;
+    }
+
+    @GetMapping(path = "findTripByDepartureFlight/{departureFlight}")
+    public List<TripDTO> findTripByDepartureFlight(@PathVariable Date departureFlight){
+        List<TripDTO> tripDTOSList = tripService.findTripByDepartureFlight(departureFlight);
         return tripDTOSList;
     }
 }

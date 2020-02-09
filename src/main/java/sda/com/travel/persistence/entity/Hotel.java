@@ -31,7 +31,7 @@ public class Hotel {
     @Column(name = "standard")
     private int standard;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
 

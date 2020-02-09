@@ -2,6 +2,7 @@ package sda.com.travel.persistence.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
 
 
 @NamedQueries({
@@ -110,5 +111,24 @@ public class Flight {
         this.tripDeparture = tripDeparture;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return id == flight.id &&
+                totalNrOfSeets == flight.totalNrOfSeets &&
+                availableSeets == flight.availableSeets &&
+                flightPrice == flight.flightPrice &&
+                Objects.equals(flightNumber, flight.flightNumber) &&
+                Objects.equals(departureDate, flight.departureDate) &&
+                Objects.equals(airport, flight.airport) &&
+                Objects.equals(tripReturn, flight.tripReturn) &&
+                Objects.equals(tripDeparture, flight.tripDeparture);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, flightNumber, departureDate, totalNrOfSeets, availableSeets, flightPrice, airport, tripReturn, tripDeparture);
+    }
 }

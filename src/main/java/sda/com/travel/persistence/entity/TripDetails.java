@@ -1,6 +1,7 @@
 package sda.com.travel.persistence.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Table(name = "trips_details")
@@ -18,6 +19,9 @@ public class TripDetails {
     @Column(name = "amount")
     private int amount;
 
+    @Column(name = "trip_purchased_date")
+    private Date tripPurchasedDate;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "trip_id")
     private Trip trip;
@@ -27,6 +31,14 @@ public class TripDetails {
             joinColumns = @JoinColumn(name = "tripdetails_id"),
             inverseJoinColumns = @JoinColumn(name= "user_id"))
     private Set<User> userSet;
+
+    public Date getTripPurchasedDate() {
+        return tripPurchasedDate;
+    }
+
+    public void setTripPurchasedDate(Date tripPurchasedDate) {
+        this.tripPurchasedDate = tripPurchasedDate;
+    }
 
     public int getId() {
         return id;

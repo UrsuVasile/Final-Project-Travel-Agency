@@ -9,10 +9,10 @@ import sda.com.travel.persistence.entity.*;
 import sda.com.travel.utils.config.HibernateUtil;
 
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class TripService {
@@ -248,6 +248,9 @@ public class TripService {
 
         tripDetails.setUserSet(userSet);
 
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        tripDetails.setTripPurchasedDate(date);
+        
         tripDetails.setAmount(user.getTotalAmount());
         tripDetails.setTrip(trip2);
 
@@ -393,8 +396,35 @@ public class TripService {
         return tripDTO;
     }
 
+    /**
+     *
+     * @param isPromoted
+     * @return
+     */
     public List<TripDTO> findTripIfIsPromoted(boolean isPromoted){
         List<Trip> tripsList = tripDAO.findTripIfIsPromoted(isPromoted);
+        List<TripDTO> tripDTOSList = new ArrayList<>();
+
+        for (Trip t: tripsList){
+            TripDTO tripDTO = transferTripFieldsInTripDTOObject(t);
+            tripDTOSList.add(tripDTO);
+        }
+        return tripDTOSList;
+    }
+
+    public List<TripDTO> findTripByType(String type){
+        List<Trip> tripsList = tripDAO.findTripByType(type);
+        List<TripDTO> tripDTOSList = new ArrayList<>();
+
+        for (Trip t: tripsList){
+            TripDTO tripDTO = transferTripFieldsInTripDTOObject(t);
+            tripDTOSList.add(tripDTO);
+        }
+        return tripDTOSList;
+    }
+
+    public List<TripDTO> findTripByDepartureFlight(Date departureFlight){
+        List<Trip>tripsList = tripDAO.findTripByDepartureFlight(departureFlight);
         List<TripDTO> tripDTOSList = new ArrayList<>();
 
         for (Trip t: tripsList){

@@ -8,6 +8,7 @@ import sda.com.travel.persistence.entity.User;
 import sda.com.travel.utils.config.HibernateUtil;
 
 import javax.persistence.Query;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -76,6 +77,24 @@ public class TripDAO {
     public List<Trip> findTripIfIsPromoted (boolean isPromoted){
         hibernateUtil.openSessionAndTransaction();
         Query query = hibernateUtil.session.createNamedQuery("find_trip_if_is_promoted");
+        List<Trip> tripsList = query.getResultList();
+        hibernateUtil.closeSessionAndTransaction();
+        return tripsList;
+    }
+
+    public List<Trip> findTripByType(String type){
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_trip_by_type");
+        query.setParameter("type", type);
+        List<Trip> tripsList = query.getResultList();
+        hibernateUtil.closeSessionAndTransaction();
+        return tripsList;
+    }
+
+    public List<Trip> findTripByDepartureFlight(Date departureFlight){
+        hibernateUtil.openSessionAndTransaction();
+        Query query = hibernateUtil.session.createNamedQuery("find_trip_by_departureDate");
+        query.setParameter("departureFlight", departureFlight);
         List<Trip> tripsList = query.getResultList();
         hibernateUtil.closeSessionAndTransaction();
         return tripsList;
